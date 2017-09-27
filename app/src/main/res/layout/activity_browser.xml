@@ -50,7 +50,7 @@
     </android.support.design.widget.AppBarLayout>
 
 
-    <android.support.v4.widget.NestedScrollView
+    <in.hocg.app.browserkit.ui.XNestedScrollView
         android:id="@+id/nested_scroll_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -63,6 +63,6 @@
             android:layout_height="match_parent"
             >
         </in.hocg.app.browserkit.ui.BrowserView>
-    </android.support.v4.widget.NestedScrollView>
+    </in.hocg.app.browserkit.ui.XNestedScrollView>
 
 </android.support.design.widget.CoordinatorLayout>

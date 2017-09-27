@@ -4,8 +4,8 @@ import android.animation.ObjectAnimator;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.Menu;
@@ -21,6 +21,7 @@ import com.orhanobut.logger.Logger;
 import in.hocg.app.browserkit.ui.BrowserFeaturesBar;
 import in.hocg.app.browserkit.ui.BrowserToolbar;
 import in.hocg.app.browserkit.ui.BrowserView;
+import in.hocg.app.browserkit.ui.XNestedScrollView;
 import in.hocg.app.kit.LangKit;
 import in.hocg.app.kit.OnClickListener;
 import in.hocg.app.ui.MoreSettingDialog;
@@ -34,7 +35,7 @@ public class BrowserActivity extends AppCompatActivity {
 	public static final String LAUNCH = "in.hocg.app.browserkit.intent.action.LAUNCH";
 	protected String url;
 	protected BrowserView browserView;
-	protected NestedScrollView nestedScrollView;
+	protected XNestedScrollView nestedScrollView;
 	private BrowserToolbar toolbar;
 	private AppBarLayout appBarLayout;
 	private ProgressBar progressBar;
@@ -98,6 +99,14 @@ public class BrowserActivity extends AppCompatActivity {
 				return false;
 			}
 		});
+		nestedScrollView.setScrollListener(new XNestedScrollView.NestedScrollViewScrollStateListener() {
+			@Override
+			public void onNestedScrollViewStateChanged(int state) {
+				if (state == RecyclerView.SCROLL_STATE_IDLE) {
+					bfb.close();
+				}
+			}
+		});
 	}
 	
 	public void findAll() {
@@ -105,7 +114,7 @@ public class BrowserActivity extends AppCompatActivity {
 		browserView = (BrowserView) findViewById(R.id.web_view);
 		appBarLayout = (AppBarLayout) findViewById(R.id.app_bar_layout);
 		progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-		nestedScrollView = (NestedScrollView) findViewById(R.id.nested_scroll_view);
+		nestedScrollView = (XNestedScrollView) findViewById(R.id.nested_scroll_view);
 		bfb = new BrowserFeaturesBar(this);
 		
 	}
@@ -124,6 +133,11 @@ public class BrowserActivity extends AppCompatActivity {
 				Toast.makeText(getBaseContext(), "可进行点赞类的操作..", Toast.LENGTH_SHORT).show();
 			}
 		});
+		
+		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+				LinearLayout.LayoutParams.WRAP_CONTENT,
+				LinearLayout.LayoutParams.WRAP_CONTENT);
+		addContentView(bfb, layoutParams);
 		
 		toolbar.style();
 		//声明WebSettings子类
@@ -168,16 +182,11 @@ public class BrowserActivity extends AppCompatActivity {
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
 		// 进行需要窗口数据的初始化
-		
-		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.WRAP_CONTENT,
-				LinearLayout.LayoutParams.WRAP_CONTENT);
 		metric = new DisplayMetrics();
 		getWindow().getWindowManager()
 				.getDefaultDisplay()
 				.getMetrics(metric);
 		bfb.setY(metric.heightPixels - 250);
-		addContentView(bfb, layoutParams);
 	}
 	
 	public String getUrl() {
