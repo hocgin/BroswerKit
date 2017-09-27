@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:showDividers="middle"
+              android:layout_height="match_parent"
+              android:background="#FFFEFE">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center"
+        android:textColor="#9F9FA0"
+        android:textSize="12sp"
+        tools:text="描述信息"
+        android:visibility="gone"
+        />
+   <HorizontalScrollView
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:scrollbars="none"
+       >
+       <LinearLayout
+           android:id="@+id/button_panel"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:orientation="horizontal"
+           android:layout_margin="10dp"
+           >
+       </LinearLayout>
+   </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/cancel_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:textColor="#9B9A9A"
+        android:background="#f9f9f9"
+        android:textSize="20sp"
+        android:text="取消"
+        />
+</LinearLayout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:tools="http://schemas.android.com/tools"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      tools:context=".BrowserActivity"
+    >
+    <item android:id="@+id/action_open_browser"
+          android:orderInCategory="80"
+          android:icon="@drawable/ic_more_horiz"
+          android:title="使用默认浏览器打开"
+          app:showAsAction="ifRoom"
+        />
+</menu>
