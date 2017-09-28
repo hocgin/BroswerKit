@@ -1,6 +1,15 @@
 ## 浏览
 ![image](screen/1.png) 
 .![image](screen/2.png)
+
+## 概要
+- 支持左右滑动, 前进后退。
+- 支持会退键后退。
+- 支持 toolbar 中的 title 滑动查看网页标题。
+- 支持 toolbar 双击回到顶部。
+- 支持 toolbar 下滑隐藏，上滑显示。
+- ~~支持自定义设置浏览器细节及配色~~
+
 ## 使用
 1. 在 `AndroidManifest.xml` 添加必要权限.
 ```xml
