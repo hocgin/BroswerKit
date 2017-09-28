@@ -1,6 +1,7 @@
 package in.hocg.app.browserkit;
 
 import android.animation.ObjectAnimator;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -11,6 +12,7 @@ import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -32,7 +34,7 @@ import in.hocg.app.ui.MoreSettingDialog;
  */
 
 public class BrowserActivity extends AppCompatActivity {
-	public static final String LAUNCH = "in.hocg.app.browserkit.intent.action.LAUNCH";
+	public static final String VIEW = "in.hocg.app.intent.action.Browser_VIEW";
 	protected String url;
 	protected BrowserView browserView;
 	protected XNestedScrollView nestedScrollView;
@@ -120,47 +122,56 @@ public class BrowserActivity extends AppCompatActivity {
 	}
 	
 	private void initData() {
-		url = "https://www.ketangpai.com/help/index.html";
+		Uri url = getIntent().getData();
+		if (url != null) {
+			this.url = url.toString();
+		}
 	}
 	
 	private void initView() {
 		setSupportActionBar(toolbar);
 		browserView.init(this);
+		//**********************
+		//*  WebView Settings  *
+		//**********************
+		WebSettings webSettings = browserView.getSettings();
+		//优先使用缓存
+		webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+		//设置支持 Javascript
+		webSettings.setJavaScriptEnabled(true);
+		//设置自适应屏幕，两者合用
+		webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
+		webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
+		//缩放操作
+		webSettings.setSupportZoom(true);
+		//设置内置的缩放控件。若为false，则该WebView不可缩放
+		webSettings.setBuiltInZoomControls(true);
+		//隐藏原生的缩放控件
+		webSettings.setDisplayZoomControls(false);
+		//设置可以访问文件
+		webSettings.setAllowFileAccess(true);
+		//支持通过JS打开新窗口
+		webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
+		//支持自动加载图片
+		webSettings.setLoadsImagesAutomatically(true);
+		//设置编码格式
+		webSettings.setDefaultTextEncodingName("UTF-8");
+		browserView.loadUrl(url);
 		
+		// 扩展左侧功能
 		bfb.addButton(R.mipmap.ic_launcher, new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				Toast.makeText(getBaseContext(), "可进行点赞类的操作..", Toast.LENGTH_SHORT).show();
 			}
 		});
-		
 		LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
 				LinearLayout.LayoutParams.WRAP_CONTENT,
 				LinearLayout.LayoutParams.WRAP_CONTENT);
 		addContentView(bfb, layoutParams);
 		
 		toolbar.style();
-		//声明WebSettings子类
-		WebSettings webSettings = browserView.getSettings();
-		//如果访问的页面中要与Javascript交互，则webview必须设置支持Javascript
-		webSettings.setJavaScriptEnabled(true);
-		//支持插件
-		webSettings.setPluginState(WebSettings.PluginState.ON);
-		//设置自适应屏幕，两者合用
-		webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
-		webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-		//缩放操作
-		webSettings.setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
-		webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该WebView不可缩放
-		webSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
-		//其他细节操作
-		webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK); //关闭webview中缓存
-		webSettings.setAllowFileAccess(true); //设置可以访问文件
-		webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
-		webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
-		webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
 		moreDialog = new MoreSettingDialog(this);
-		browserView.loadUrl(url);
 	}
 	
 	@Override
@@ -211,5 +222,18 @@ public class BrowserActivity extends AppCompatActivity {
 	
 	public MoreSettingDialog getMoreDialog() {
 		return moreDialog;
+	}
+	
+	@Override
+	protected void onDestroy() {
+		if (browserView != null) {
+			browserView.loadDataWithBaseURL(null, "", "text/html", "utf-8", null);
+			browserView.clearHistory();
+			
+			((ViewGroup) browserView.getParent()).removeView(browserView);
+			browserView.destroy();
+			browserView = null;
+		}
+		super.onDestroy();
 	}
 }

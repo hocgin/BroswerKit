@@ -16,6 +16,7 @@ import in.hocg.app.browserkit.R;
 
 /**
  * Created by hocgin on 2017/9/26.
+ * 顶部toolbar
  */
 
 public class BrowserToolbar extends Toolbar {

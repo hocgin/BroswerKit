@@ -24,7 +24,7 @@
                   android:theme="@style/AppTheme.NoActionBar"
             >
             <intent-filter>
-                <action android:name="in.hocg.app.browserkit.intent.action.LAUNCH"/>
+                <action android:name="in.hocg.app.intent.action.Browser_VIEW"/>
             </intent-filter>
         </activity>
     </application>

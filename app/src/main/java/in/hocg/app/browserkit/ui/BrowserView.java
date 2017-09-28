@@ -57,6 +57,12 @@ public class BrowserView extends WebView {
 	private float posX;
 	private static final float mistake = 10f; // 精确系数
 	
+	
+	/**
+	 * 左右滑动 前进和后退
+	 * @param event
+	 * @return
+	 */
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		switch (event.getAction()) {

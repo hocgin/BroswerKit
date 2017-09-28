@@ -7,12 +7,6 @@
     tools:context="in.hocg.app.MainActivity"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/tt"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        />
-
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
@@ -21,21 +15,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="53dp"
         android:layout_marginEnd="36dp"
-        android:text="Button"
+        android:text="打开 www.baidu.com"
         tools:layout_editor_absoluteX="36dp"
         tools:layout_editor_absoluteY="45dp"/>
-
-    <in.hocg.app.browserkit.ui.BrowserFeaturesBar
-        android:layout_below="@id/tt"
-        android:id="@+id/bfb"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-
-    <TextView
-        android:id="@+id/mm"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:text="Horizontalscrollviewwillwork now"/>
 </RelativeLayout>

@@ -13,6 +13,7 @@ import in.hocg.app.browserkit.R;
 
 /**
  * Created by hocgin on 2017/9/27.
+ * 侧边扩展功能
  */
 
 public class BrowserFeaturesBar extends LinearLayout {
@@ -65,13 +66,16 @@ public class BrowserFeaturesBar extends LinearLayout {
 	}
 	
 	public void addButton(@DrawableRes int resId, OnClickListener listener) {
-		setVisibility(View.VISIBLE);
 		ImageView imageView = new ImageView(getContext());
 		imageView.setLayoutParams(layoutParams);
 		imageView.setBackgroundResource(R.drawable.image_radius);
 		imageView.setImageResource(resId);
 		imageView.setOnClickListener(listener);
 		addView(imageView, 0);
+		
+		if (getVisibility() != View.VISIBLE) {
+			setVisibility(View.VISIBLE);
+		}
 	}
 	
 	/**
