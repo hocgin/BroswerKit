@@ -1,4 +1,47 @@
-- http://www.cnblogs.com/shen-hua/p/6782209.html > 总结 解决webview加载闪屏
-- 解决了 ProgressBar https://stackoverflow.com/questions/18526644/align-progressbar-horizontal-to-top-remove-gap 问题
-- 关于 WebView getScrollY = 0 的问题 https://stackoverflow.com/questions/29134082/webview-getscrolly-always-returns-0
-- TextView 横向触屏滚动
+## 使用
+1. 在 `AndroidManifest.xml` 添加必要权限.
+```xml
+    <manifest>
+        <uses-permission android:name="android.permission.INTERNET"/>
+        ...
+    </manifest>
+```
+2. 在 `AndroidManifest.xml` 添加 `BrowserActivity` 配置
+```xml
+    <application>
+        ...
+        <activity android:name=".BrowserActivity"
+                  android:theme="@style/AppTheme.NoActionBar"
+            >
+            <intent-filter>
+                <action android:name="in.hocg.app.intent.action.Browser_VIEW"/>
+            </intent-filter>
+        </activity>
+    </application>
+```
+
+3. 调用 `BrowserActivity`
+```java
+    Intent intent = new Intent(this, BrowserActivity.class);
+	intent.setData(Uri.parse("https://www.baidu.com"));
+	startActivity(intent);
+```
+4. 添加左侧功能栏
+```java
+    bfb.addButton(R.mipmap.ic_launcher, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getBaseContext(), "可进行点赞类的操作..", Toast.LENGTH_SHORT).show();
+			}
+		});
+``````
+5. 添加底部弹窗功能
+```java
+       moreDialog.addButton("浏览器打开", R.drawable.ic_action_globe, new View.OnClickListener() {
+   			@Override
+   			public void onClick(View v) {
+   				LangKit.openBrowser(getBaseContext(), browserView.getUrl());
+   				moreDialog.cancel();
+   			}
+   		});
+```
