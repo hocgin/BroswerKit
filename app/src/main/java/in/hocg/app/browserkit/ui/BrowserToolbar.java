@@ -7,9 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.text.Spannable;
 import android.text.TextUtils;
-import android.text.method.MovementMethod;
+import android.text.method.BaseMovementMethod;
 import android.util.AttributeSet;
-import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
@@ -37,42 +36,12 @@ public class BrowserToolbar extends Toolbar {
 		setTitleTextColor(Color.WHITE);
 		setNavigationIcon(R.mipmap.ic_close);
 		
+		// titleView
 		TextView toolbarTitle = ((TextView) getChildAt(0));
 		toolbarTitle.setEllipsize(TextUtils.TruncateAt.MARQUEE);
-		toolbarTitle.setSingleLine(true);
-		toolbarTitle.setMovementMethod(new MovementMethod() {
-			@Override
-			public void initialize(TextView widget, Spannable text) {
-				
-			}
-			
-			@Override
-			public boolean onKeyDown(TextView widget, Spannable text, int keyCode, KeyEvent event) {
-				return false;
-			}
-			
-			@Override
-			public boolean onKeyUp(TextView widget, Spannable text, int keyCode, KeyEvent event) {
-				return false;
-			}
-			
-			@Override
-			public boolean onKeyOther(TextView view, Spannable text, KeyEvent event) {
-				return false;
-			}
-			
-			@Override
-			public void onTakeFocus(TextView widget, Spannable text, int direction) {
-				
-			}
-			
-			@Override
-			public boolean onTrackballEvent(TextView widget, Spannable text, MotionEvent event) {
-				return false;
-			}
+		toolbarTitle.setMovementMethod(new BaseMovementMethod() {
 			
 			private float startX;
-			
 			@Override
 			public boolean onTouchEvent(TextView widget, Spannable text, MotionEvent event) {
 				switch (event.getAction()) {
@@ -95,16 +64,6 @@ public class BrowserToolbar extends Toolbar {
 						break;
 				}
 				return true;
-			}
-			
-			@Override
-			public boolean onGenericMotionEvent(TextView widget, Spannable text, MotionEvent event) {
-				return false;
-			}
-			
-			@Override
-			public boolean canSelectArbitrarily() {
-				return false;
 			}
 		});
 	}

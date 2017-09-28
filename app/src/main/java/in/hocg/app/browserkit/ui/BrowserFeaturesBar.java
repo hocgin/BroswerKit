@@ -61,9 +61,11 @@ public class BrowserFeaturesBar extends LinearLayout {
 		setOrientation(HORIZONTAL);
 		setElevation(2f);
 		setBackgroundResource(R.drawable.right_radius);
+		setVisibility(View.GONE);
 	}
 	
 	public void addButton(@DrawableRes int resId, OnClickListener listener) {
+		setVisibility(View.VISIBLE);
 		ImageView imageView = new ImageView(getContext());
 		imageView.setLayoutParams(layoutParams);
 		imageView.setBackgroundResource(R.drawable.image_radius);
