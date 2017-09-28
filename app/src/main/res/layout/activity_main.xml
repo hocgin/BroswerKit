@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="in.hocg.app.MainActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="in.hocg.app.MainActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/tt"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        />
 
     <Button
         android:id="@+id/button"
@@ -20,6 +26,7 @@
         tools:layout_editor_absoluteY="45dp"/>
 
     <in.hocg.app.browserkit.ui.BrowserFeaturesBar
+        android:layout_below="@id/tt"
         android:id="@+id/bfb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,17 +34,8 @@
 
     <TextView
         android:id="@+id/mm"
-        android:layout_below="@id/bfb"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-
-        android:singleLine="true"
-        android:ellipsize="marquee"
-        android:marqueeRepeatLimit="marquee_forever"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-
-
-
-        android:text="Horizontal scroll view will work now"/>
+        android:background="@color/colorPrimary"
+        android:text="Horizontalscrollviewwillwork now"/>
 </RelativeLayout>

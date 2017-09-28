@@ -120,7 +120,7 @@ public class BrowserActivity extends AppCompatActivity {
 	}
 	
 	private void initData() {
-		url = "http://blog.csdn.net/carson_ho/article/details/52693322";
+		url = "https://www.ketangpai.com/help/index.html";
 	}
 	
 	private void initView() {

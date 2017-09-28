@@ -61,6 +61,11 @@ public class XWebViewClient extends WebViewClient {
 	}
 	
 	@Override
+	public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
+		return this.shouldOverrideUrlLoading(view, request.getUrl().getPath());
+	}
+	
+	@Override
 	public void onPageStarted(WebView view, String url, Bitmap favicon) {
 		// 设定加载开始的操作
 		// 我们可以设定一个loading的页面，告诉用户程序在等待网络响应

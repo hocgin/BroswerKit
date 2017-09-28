@@ -10,20 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
-
-        <!--<in.hocg.app.browserkit.BrowserToolbar-->
-        <!--android:id="@+id/toolbar"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="?android:attr/actionBarSize"-->
-        <!--app:layout_scrollFlags="scroll|enterAlways"/>-->
-        <!--<ProgressBar-->
-        <!--android:id="@+id/progress_bar"-->
-        <!--style="?android:attr/progressBarStyleHorizontal"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="10dp"-->
-        <!--android:max="100"-->
-        <!--android:visibility="invisible"-->
-        <!--/>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -34,7 +20,8 @@
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
-                />
+                >
+            </in.hocg.app.browserkit.ui.BrowserToolbar>
 
             <ProgressBar
                 android:id="@+id/progress_bar"

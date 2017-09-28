@@ -1,16 +1,22 @@
 package in.hocg.app.browserkit.ui;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.TextUtils;
+import android.text.method.MovementMethod;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.widget.TextView;
 
 import in.hocg.app.browserkit.R;
 
 /**
  * Created by hocgin on 2017/9/26.
- * todo x 实现顶部标题 横向滚动
  */
 
 public class BrowserToolbar extends Toolbar {
@@ -30,5 +36,76 @@ public class BrowserToolbar extends Toolbar {
 		setSubtitleTextColor(Color.WHITE);
 		setTitleTextColor(Color.WHITE);
 		setNavigationIcon(R.mipmap.ic_close);
+		
+		TextView toolbarTitle = ((TextView) getChildAt(0));
+		toolbarTitle.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+		toolbarTitle.setSingleLine(true);
+		toolbarTitle.setMovementMethod(new MovementMethod() {
+			@Override
+			public void initialize(TextView widget, Spannable text) {
+				
+			}
+			
+			@Override
+			public boolean onKeyDown(TextView widget, Spannable text, int keyCode, KeyEvent event) {
+				return false;
+			}
+			
+			@Override
+			public boolean onKeyUp(TextView widget, Spannable text, int keyCode, KeyEvent event) {
+				return false;
+			}
+			
+			@Override
+			public boolean onKeyOther(TextView view, Spannable text, KeyEvent event) {
+				return false;
+			}
+			
+			@Override
+			public void onTakeFocus(TextView widget, Spannable text, int direction) {
+				
+			}
+			
+			@Override
+			public boolean onTrackballEvent(TextView widget, Spannable text, MotionEvent event) {
+				return false;
+			}
+			
+			private float startX;
+			
+			@Override
+			public boolean onTouchEvent(TextView widget, Spannable text, MotionEvent event) {
+				switch (event.getAction()) {
+					case MotionEvent.ACTION_DOWN:
+						startX = event.getX();
+						break;
+					case MotionEvent.ACTION_MOVE:
+						float endX = event.getX();
+						float length = endX - startX;
+						int scrollX = (int) (widget.getScrollX() - length);
+						if (scrollX < 0) {
+							return true;
+						}
+						widget.setScrollX(scrollX);
+						break;
+					case MotionEvent.ACTION_UP:
+						ObjectAnimator objectAnimator = ObjectAnimator.ofInt(widget, "scrollX", 0);
+						objectAnimator.setDuration(400);
+						objectAnimator.start();
+						break;
+				}
+				return true;
+			}
+			
+			@Override
+			public boolean onGenericMotionEvent(TextView widget, Spannable text, MotionEvent event) {
+				return false;
+			}
+			
+			@Override
+			public boolean canSelectArbitrarily() {
+				return false;
+			}
+		});
 	}
 }
